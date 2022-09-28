@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "core-js": "^3.25.3",
     "sass": "^1.38.0"
   }
 }

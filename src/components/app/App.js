@@ -6,8 +6,7 @@ import AppHeader from "../appHeader/AppHeader";
 
 
 const App = () => {
-
-
+    
         return (
            <Router>
              <div className="app">
@@ -19,7 +18,7 @@ const App = () => {
                         </Route>
 
                         <Route exact path="/comics">
-                                <ComicsPage/>
+                            <ComicsPage/>
                         </Route>
                     </Switch>
                 </main>

@@ -13,7 +13,7 @@ const AppHeader = () => {
                 <ul>
                     <li><NavLink  exact activeStyle={{'color': 'red'}}  to="/">Characters</NavLink></li>
                     /
-                    <li><NavLink  exact activeStyle={{'color': 'red'}} to="/comics">Comics</NavLink></li>
+                    <li><NavLink  activeStyle={{'color': 'red'}} to="/comics">Comics</NavLink></li>
                 </ul>
             </nav>
         </header>

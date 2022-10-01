@@ -10,7 +10,7 @@ import './charInfo.scss';
 
 const CharInfo = (props) => {
     const [char, setChar] = useState(null);
-   
+    const [comicId, setComicID] = useState(null)
 
    const {loading, error, getCharacter, clearError} = useMarvelService();
 
@@ -32,13 +32,16 @@ const CharInfo = (props) => {
 
    const onCharLoaded = (char) => {
         setChar(char);
+        console.log(char)
     }
+
+   
 
 
     const skeleton = char || loading || error ? null : <Skeleton/>;
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !char) ? <View char={char}/> : null;
+    const content = !(loading || error || !char) ? <View  char={char}/> : null;
 
     return (
         <div className="char__info">
@@ -52,6 +55,14 @@ const CharInfo = (props) => {
 
 const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki, comics} = char;
+    const [comicId, setComicId] = useState('')
+
+    const selectComicId =(id) => {
+        id = id.split('comics/')[1]
+        setComicId(id)
+        console.log(comicId)
+    }
+
 
     let imgStyle = {'objectFit' : 'cover'};
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
@@ -82,10 +93,13 @@ const View = ({char}) => {
                 {comics.length > 0 ? null : 'There is no comics with this character'}
                 {
                     comics.map((item, i) => {
-                        // eslint-disable-next-line
+                        // let id = item
                         if (i > 9) return;
                         return (
-                            <li key={i} className="char__comics-item">
+                            <li key={i} 
+                            className="char__comics-item"
+                            onClick={() => selectComicId(item.resourceURI)}
+                            >
                                 {item.name}
                             </li>
                         )

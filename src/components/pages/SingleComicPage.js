@@ -11,6 +11,7 @@ import './singleComicPage.scss';
 const SingleComicPage = () => {
     const {comicId} = useParams();
     const [comic, setComic] = useState(null);
+
     
     const {loading, error, getComic, clearError} = useMarvelService();
 
@@ -58,7 +59,7 @@ const View = ({comic}) => {
                 <p className="single-comic__descr">Language: en-us</p>
                 <div className="single-comic__price">{price}</div>
             </div>
-            <Link to='/comics' className="single-comic__back">Back to all</Link>
+            <Link to="/comics"  className="single-comic__back">Back to all</Link>
         </div>
         </>
     )

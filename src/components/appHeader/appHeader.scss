@@ -1,7 +1,11 @@
 @import '../../style/variables.scss';
 
 .app {
+    &__active {
+        color: red;
+    }
     &__header {
+       
         display: flex;
         justify-content: space-between;
     }

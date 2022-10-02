@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import useMarvelService from '../../services/MarvelService';
@@ -12,6 +12,7 @@ const SingleComicPage = () => {
     const {comicId} = useParams();
     const [comic, setComic] = useState(null);
 
+   
     
     const {loading, error, getComic, clearError} = useMarvelService();
 
@@ -31,9 +32,11 @@ const SingleComicPage = () => {
         console.log(comic);
     }
 
+
+
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !comic) ? <View comic={comic}/> : null;
+    const content = !(loading || error || !comic) ? <View  comic={comic}/> : null;
 
     return (
       <>
@@ -47,7 +50,7 @@ const SingleComicPage = () => {
 
 const View = ({comic}) => {
     const {title, description, pageCount, thumbnail, price} = comic;
-    console.log(pageCount)
+    const navigate = useNavigate();
     return (
         <>
         <div className="single-comic">
@@ -59,7 +62,12 @@ const View = ({comic}) => {
                 <p className="single-comic__descr">Language: en-us</p>
                 <div className="single-comic__price">{price}</div>
             </div>
-            <Link to="/comics"  className="single-comic__back">Back to all</Link>
+            {/* <Link to="/comics"  className="single-comic__back">Back to all</Link> */}
+            <button className="single-comic__back"
+                    onClick={() => navigate(-1)}
+            >
+                Back to all
+            </button>
         </div>
         </>
     )

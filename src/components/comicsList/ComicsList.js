@@ -7,11 +7,12 @@ import useMarvelService from '../../services/MarvelService';
 
 import './comicsList.scss';
 
-const ComicsList = () => {
+const ComicsList = ({addComicsToWishList}) => {
     const [comicsList, setComicsList] = useState([]);
     const [newItemLoading, setNewItemLoading] = useState(false);
     const [offset, setoffset] = useState(0);
     const [comicsEnded, setComicsEnded] = useState(false);
+
 
     const {loading, error, _getAllComics} = useMarvelService();
 
@@ -41,6 +42,11 @@ const ComicsList = () => {
 
     }
 
+    const handleWishList = (id) => {
+        addComicsToWishList(id)
+        
+    }
+
     function renderItems (arr) {
         const items = arr.map((item, i) => {
 
@@ -53,6 +59,7 @@ const ComicsList = () => {
                         <div className="comics__item-name">{item.title}</div>
                         <div className="comics__item-price">{item.price}</div>
                     </Link>
+                    <div className="comics__item-price"><button onClick={() =>handleWishList(item.id)}>add to wish list</button></div>
                 </li>
             )
         });

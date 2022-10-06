@@ -1,15 +1,20 @@
-
+import { useState } from "react";
 import ComicsList from "../comicsList/ComicsList";
 import AppBanner from "../appBanner/AppBanner";
 
 
-const ComicsPage = () => {
+const ComicsPage = ({upgradeWishList}) => {
+    
+    const addComicsToWishList = (id) => {
+        upgradeWishList(id)
+    }
+
 
     return (
         <>
         <AppBanner/>
-        <ComicsList/> 
-        </>
+        <ComicsList addComicsToWishList={addComicsToWishList}  /> 
+        </> 
     )
 }
 

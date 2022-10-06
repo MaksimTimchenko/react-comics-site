@@ -10,12 +10,13 @@ const App = () => {
     const [wishList, setWishList] =useState([]); 
 
     const upgradeWishList = (id) => { 
+        console.log(wishList);
             wishList.indexOf(id) == -1  ? setWishList(wishList => [id, ...wishList]) : setWishList(wishList => [...wishList])
     }
         return (
            <Router>
              <div className="app">
-                <AppHeader/>
+                <AppHeader wishListLength={wishList.length}/>
                 <main>
                     <Routes>
                         <Route  path="/" element={<MainPage/>}/>

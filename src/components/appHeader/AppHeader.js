@@ -1,7 +1,7 @@
 import {Link, NavLink} from "react-router-dom";
 import './appHeader.scss';
 
-const AppHeader = () => {
+const AppHeader = ({wishListLength}) => {
 
     let activeStyle = {
         color: "red",
@@ -19,7 +19,7 @@ const AppHeader = () => {
                     <li><NavLink end style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}  to="/">Characters</NavLink></li>
                     /
                     <li><NavLink end style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}  to="/comics">Comics</NavLink></li>
-                    <li className="menu__wish-list"><NavLink end style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}  to="/wishlist">Wish list</NavLink></li>
+                    <li className="menu__wish-list"><NavLink end style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}  to="/wishlist">Wish list  {wishListLength}</NavLink></li>
                 </ul>
             </nav>
         </header>

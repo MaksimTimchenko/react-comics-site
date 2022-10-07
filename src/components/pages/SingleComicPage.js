@@ -4,21 +4,35 @@ import { useState, useEffect } from 'react';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-
+import Img from '../../resources/img/abyss.jpg'
 import './singleComicPage.scss';
+import set from 'core-js/library/fn/reflect/set';
 
 
 const SingleComicPage = () => {
     const {comicId} = useParams();
     const [comic, setComic] = useState(null);
+    const [characters, setCharacters] = useState([])
 
+    const {loading, error, getComic, _getCharactersComic ,clearError} = useMarvelService();
     
-    const {loading, error, getComic, clearError} = useMarvelService();
-
     useEffect(() =>{
         updateComic();
+        
+
     },[comicId]);
-    
+
+    useEffect(() => {
+        onRequest(comicId)  
+    },[comicId])
+
+    const onRequest = (comicId) => {
+        _getCharactersComic(comicId)
+            .then(onCharactersLoaded)
+            clearError()
+
+    }
+
 
     const updateComic = () => {
         getComic(comicId)
@@ -26,24 +40,56 @@ const SingleComicPage = () => {
         clearError();
     }
 
+    const onCharactersLoaded = (charactersList) => {
+        setCharacters([...charactersList, ...characters,])
+    }
+    
    const onComicLoaded = (comic) => {
         setComic(comic);
     }
+    
 
+    const renderItems = (arr) => {
 
+        const items = arr.map(item => {
+            return (
+            <li className='single-comic__characters__item' key={item.id}>
+                <img src={item.thumbnail} alt={item.name} />
+                <div className='single-comic__characters__name'>{item.name}</div> 
+            </li>
+            )
+        })
+
+        return (
+            <div className='single-comic__characters'>
+                <h3 className='single-comic__characters__title'>Characters</h3>
+                <ul className='single-comic__characters__grid'>
+                    {characters ? items : 'not yet'}               
+                </ul>
+            </div>
+        )
+    }
+
+    const items = renderItems(characters)
+    
 
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !comic) ? <View  comic={comic}/> : null;
+    const content = !(loading || error || !comic) ? <View items={items} comic={comic}/> : null;
+    const contentChars = !(loading || error || !characters) ? items : null;
+
 
     return (
       <>
       {errorMessage}
       {spinner}
       {content}
+      {contentChars}
       </>
     )
 }
+
+
 
 
 const View = ({comic}) => {
@@ -60,12 +106,13 @@ const View = ({comic}) => {
                 <p className="single-comic__descr">Language: en-us</p>
                 <div className="single-comic__price">{price}</div>
             </div>
-            {/* <Link to="/comics"  className="single-comic__back">Back to all</Link> */}
+            
             <button className="single-comic__back"
                     onClick={() => navigate(-1)}
             >
                 Back to all
             </button>
+            
         </div>
         </>
     )

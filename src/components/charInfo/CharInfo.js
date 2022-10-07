@@ -18,7 +18,6 @@ const CharInfo = (props) => {
     useEffect(() =>{
         updateChar();
     },[props.charId]);
-    
 
     const updateChar = () => {
         const {charId} = props;
@@ -33,7 +32,6 @@ const CharInfo = (props) => {
 
    const onCharLoaded = (char) => {
         setChar(char);
-        console.log(char)
     }
 
    
@@ -61,7 +59,6 @@ const View = ({char}) => {
     const selectComicId =(id) => {
         id = id.split('comics/')[1]
         setComicId(id)
-        console.log(comicId)
     }
 
 
@@ -94,19 +91,17 @@ const View = ({char}) => {
                 {comics.length > 0 ? null : 'There is no comics with this character'}
                 {
                     comics.map((item, i) => {
-                        // let id = item
+
                         if (i > 9) return;
                         return (
-                            <li key={i} 
-                            className="char__comics-item"
-                           
-                            >
+                            <li key={i} className="char__comics-item">
                                <Link to={`/comics/${item.resourceURI.split('comics/')[1]}`}>{item.name}</Link> 
                             </li>
                         )
                     })
                 }                
             </ul>
+            <Link to={`/character/comics/${char.id}`}>Show More</Link>
         </>
     )
 }

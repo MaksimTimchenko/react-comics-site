@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { MainPage, ComicsPage, Page404, SingleComicPage} from "../pages";
 import AppHeader from "../appHeader/AppHeader";
-import WishListPage from "../pages/WishListPage";
+// import WishListPage from "../pages/WishListPage";
 
 
 
@@ -22,7 +22,7 @@ const App = () => {
                         <Route  path="/" element={<MainPage/>}/>
                         <Route  path="/comics" element={<ComicsPage upgradeWishList={upgradeWishList}/>}/>
                         <Route  path="/comics/:comicId" element={ <SingleComicPage/>}/>
-                        <Route  path="/wishlist" element={<WishListPage wishList={wishList}/>}/>
+                        {/* <Route  path="/wishlist" element={<WishListPage wishList={wishList}/>}/> */}
                         <Route path="*" element={<Page404/>}/>
                     </Routes>
                 </main>
